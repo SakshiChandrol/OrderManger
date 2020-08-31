@@ -1,0 +1,61 @@
+
+<nav class="navbar navbar-expand-sm btn-success navbar-dark">
+  <a class="navbar-brand"  >
+     Order Management System
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mynav">
+      <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="mynav">
+      <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+              <a class="nav-link" ></a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link"  ></a>
+          </li>
+      </ul>
+      <button class="btn btn-danger  my2- my-sm-0" type="button"routerLink="">Logout</button>
+
+      
+  </div>
+  <router-outlet></router-outlet>
+</nav>
+
+<h2>Orders</h2>
+
+   
+
+<div class="table-responsive">         
+    <table class="table">
+      <thead>
+        <tr>
+         
+          <th>Order ID</th>
+          <th>Order Short Name</th>
+          <th>Order Description</th>
+          <th>Order Requester</th>
+          <th>Order Creation Date</th>
+          <th>Order Status </th>
+        
+       
+        </tr>
+      </thead>
+      <tbody>
+     
+        <tr *ngFor =" let order of userorders " >
+          
+           
+         
+          <td>{{ order.orderId }}</td>
+          <td>{{ order.orderShortName }}</td>
+          <td>{{ order.orderDesc }}</td>
+          <td>{{ order.orderRequester }}</td>
+          <td>{{ order.orderCreationDate }}</td>
+          <td>{{ order.orderStatus }}</td>
+         
+        </tr>
+      
+      </tbody>
+    </table>
+    </div>

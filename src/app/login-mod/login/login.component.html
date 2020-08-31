@@ -1,0 +1,35 @@
+<div class="container">
+  <div class="box">
+    <form>
+      <h2> Login</h2>
+      <!--<div class="form-group">
+        <label for="email">Email Address</label>
+        <input type="email" class="form-control" name="email" [(ngModel)]="email">
+      </div>-->
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="username" class="form-control" name="username"  [(ngModel)]="username" >
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" name="password" [(ngModel)]="password"></div>
+       <div> <button class="btn btn-success my2- my-sm-0" type="button" name="login" (click)="logIna()">
+           Login</button></div>
+     <!--  <button class="btn btn-success my2- my-sm-0" type="button" name="userlogin" routerLink='user'>
+            User Login</button></div>--> 
+    <router-outlet></router-outlet>
+    </form></div>
+      <!--<form>
+        <h2> User Login</h2>
+        
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" class="form-control" name="password"  >
+          </div>
+          <button class="btn btn-success my2- my-sm-0" type="button"  (click)="logIn()" >
+             Login</button>
+          <button class="btn btn-success my2- my-sm-0" type="button" routerLink=''>
+              Admin Login</button>
+      <router-outlet></router-outlet>
+          </form>-->
+        </div>

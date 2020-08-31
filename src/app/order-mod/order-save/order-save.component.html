@@ -1,0 +1,227 @@
+<nav class="navbar navbar-expand-sm btn navbar-dark">
+  <a class="navbar-brand"  routerLink="../home">
+     Order Management System
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mynav">
+      <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="mynav">
+      <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+              <a class="nav-link" routerLink="../order">Orders</a>
+          </li>
+          
+      </ul>
+      <button class="btn btn-danger  my2- my-sm-0" type="button"routerLink="">Logout</button>
+
+      
+  </div>
+  <router-outlet></router-outlet>
+</nav>
+
+<div class="container">
+  <h4>
+    Please enter order details
+  </h4>
+  <form #f="ngForm"(ngSubmit)="onSaveClick()"> 
+  <!--<div class="form-group">
+    <label for="exampleFormControlInput1">
+      Order Number
+    </label>
+    <input type="text" class="form-control"   name="id" [(ngModel)]="newOrder.id"required>
+  </div>-->
+  <div class="form-group">
+    <label for="exampleFormControlTextarea1">Order Description</label>
+    <textarea class="form-control" rows="3"name="orderDesc" [(ngModel)]="newOrder.orderDesc"
+     required maxlength="250" #orderDesc="ngModel" pattern="^[a-zA-z]+([\s][a-zA-Z]+)*$" placeholder="Please enter Order Description"></textarea>
+    <div class="form-control-feedback"
+    *ngIf="orderDesc.errors && (orderDesc.dirty || orderDesc.touched)">
+ <p *ngIf="orderDesc.errors.pattern">Description should contain space and alphabets</p>
+ <p *ngIf="orderDesc.errors.required">Description is required</p>
+</div>
+  </div>
+  <div class="form-group">
+    <label for="exampleFormControlInput1">Order Short Name</label>
+    <input type="text" class="form-control"   name="orderShortName" #orderShortName="ngModel" [(ngModel)]="newOrder.orderShortName"required pattern="^[a-zA-z]+([\s][a-zA-Z]+)*$" placeholder="Please enter Order Name">
+    <div class="form-control-feedback"
+    *ngIf="orderShortName.errors && (orderShortName.dirty || orderShortName.touched)">
+ <p *ngIf="orderShortName.errors.pattern">Order Short Name should contain space and alphabets</p>
+ <p *ngIf="orderShortName.errors.required">Order Short Name is required</p>
+</div>
+  </div>
+  <div class="form-group">
+    <label for="exampleFormControlInput1">Order Requester</label>
+    <input type="text" class="form-control"   name="orderRequester"#orderRequester="ngModel" [(ngModel)]="newOrder.orderRequester"required maxlength="25"pattern="^[a-zA-z]+([\s][a-zA-Z]+)*$" placeholder="Please enter Order Requester Name">
+    <div class="form-control-feedback"
+    *ngIf="orderRequester.errors && (orderRequester.dirty || orderRequester.touched)">
+ <p *ngIf="orderRequester.errors.pattern">Order Requester should contain space and alphabets</p>
+ <p *ngIf="orderRequester.errors.required">Order Requester is required</p>
+</div>
+  </div>
+  <div class="form-group">
+    <label for="exampleFormControlInput1">Contact Number</label>
+    <input type="text" class="form-control"  #contactNo="ngModel"  name="contactNo" [(ngModel)]="newOrder.contactNo"required pattern="[7-9]{1}[0-9]{9}" placeholder="Please enter Contact Number">
+    <div class="form-control-feedback"
+    *ngIf="contactNo.errors && (contactNo.dirty || contactNo.touched)">
+ <p *ngIf="contactNo.errors.pattern">Contact Number should contain numbers</p>
+ <p *ngIf="contactNo.errors.required">Contact Number is required</p>
+</div>
+  </div>
+  <div class="form-group">
+    <label for="exampleFormControlInput1">Email address</label>
+    <input type="email" class="form-control"  #emailId="ngModel" name="emailId" [(ngModel)]="newOrder.emailId" required  pattern="[^ @]*@[^ @]*" placeholder="Please enter Email id">
+    <div class="form-control-feedback"
+    *ngIf="emailId.errors && (emailId.dirty || emailId.touched)">
+ <p *ngIf="emailId.errors.pattern">Email is invalid</p>
+ <p *ngIf="emailId.errors.required">Email id is required</p>
+</div>
+  </div>  
+ 
+ 
+  <div class="form-group">
+    <label for="exampleFormControlInput1">Order Creation Date</label>
+    <input type="date" class="form-control" #orderCreationDate="ngModel" name="orderCreationDate" [min]="minDate" [(ngModel)]="newOrder.orderCreationDate"required placeholder="Please select Date">
+    <div class="form-control-feedback"
+    *ngIf="orderCreationDate.errors && (orderCreationDate.dirty || orderCreationDate.touched)">
+ <p *ngIf="orderCreationDate.errors.required">Creation Date is required</p>
+</div>
+  </div>
+  <div class="form-group">
+    <label for="exampleFormControlInput1">Order Pickup Date</label>
+    <input type="date" class="form-control" #orderPickupDate="ngModel"   name="orderPickupDate" [min]="minDate" [(ngModel)]="newOrder.orderPickupDate"required placeholder="Please select Date">
+    <div class="form-control-feedback"
+    *ngIf="orderPickupDate.errors && (orderPickupDate.dirty || orderPickupDate.touched)">
+ <p *ngIf="orderPickupDate.errors.required"> Pickup Date is required</p>
+</div>
+  </div>
+  <div class="form-group">
+    <label for="exampleFormControlInput1">Order Delivery Date</label>
+    <input type="date" class="form-control"  #orderDeliveryDate="ngModel" name="orderDeliveryDate"  [min]="minDate" [(ngModel)]="newOrder.orderDeliveryDate"required placeholder="Please select Date">
+    <div class="form-control-feedback"
+    *ngIf="orderDeliveryDate.errors && (orderDeliveryDate.dirty || orderDeliveryDate.touched)">
+ <p *ngIf="orderDeliveryDate.errors.required"> Delivery Date is required</p>
+</div>
+  </div>
+  <div class="form-group">
+    <label for="exampleFormControlInput1">Goods Description</label>
+    <input type="text" class="form-control" #goodsDescs="ngModel"  name="goodsDescs" [(ngModel)]="newOrder.goodsDescs"required placeholder="Please enter Goods Description" >
+    <div class="form-control-feedback"
+    *ngIf="goodsDescs.errors && (goodsDescs.dirty || goodsDescs.touched)">
+ <p *ngIf="goodsDescs.errors.required">Goods Description is required</p>
+</div>
+  </div>
+  <div class="form-group">
+    <label for="exampleFormControlInput1">Weight</label>
+    <input type="text" class="form-control" #weight="ngModel"   name="weight" [(ngModel)]="newOrder.weight"required pattern = "[0-9]{1}" placeholder="Please enter weight in Kgs">
+    <div class="form-control-feedback"
+    *ngIf="weight.errors && (weight.dirty || weight.touched)">
+    <p *ngIf="weight.errors.pattern">weight is invalid</p>
+ <p *ngIf="weight.errors.required">weight is required</p>
+</div>
+  </div>
+  <div class="form-group">
+    <label for="exampleFormControlInput1">Source Location</label>
+    <input type="text" class="form-control" #sourceLocation="ngModel"   name="sourceLocation" [(ngModel)]="newOrder.sourceLocation"required placeholder="Please enter address">
+    <label for="exampleFormControlInput1">Source City</label>
+    <input type="text" class="form-control"  #sourceCity="ngModel"  name="sourceCity" (keydown.enter)=sourceData($event.target.value) [(ngModel)]="newOrder.sourceCity"required placeholder="Please enter address">
+    <div class="form-control-feedback"
+    *ngIf="sourceLocation.errors && (sourceLocation.dirty || sourceLocation.touched)">
+ <p *ngIf="sourceLocation.errors.required">Source Location is required</p>
+</div>
+<div class="form-control-feedback"
+*ngIf="sourceCity.errors && (sourceCity.dirty || sourceCity.touched)">
+<p *ngIf="sourceCity.errors.required">Source City is required</p>
+</div>
+  </div>
+  <div class="form-group">
+    <label for="exampleFormControlInput1">Destination</label>
+    <input type="email" class="form-control"  #destination="ngModel"  name="destination" [(ngModel)]="newOrder.destination"required placeholder="Please enter address">
+    <label for="exampleFormControlInput1">Destination City</label>
+    <input type="email" class="form-control" #destinationCity="ngModel"   name="destinationCity"  (keydown.enter)=dData($event.target.value) [(ngModel)]="newOrder.destinationCity"required placeholder="Please enter address">
+    <div class="form-control-feedback"
+    *ngIf="destination.errors && (destination.dirty || destination.touched)">
+ <p *ngIf="destination.errors.required">Destination is required</p>
+</div>
+<div class="form-control-feedback"
+*ngIf="destinationCity.errors && (destinationCity.dirty || destinationCity.touched)">
+<p *ngIf="destinationCity.errors.required">Destination City is required</p>
+</div>
+  </div>
+  <div class="form-group">
+    <label for="exampleFormControlSelect1">mode Of Transport</label>
+    <select class="form-control" #modeOfTrans="ngModel" name="modeOfTrans" [(ngModel)]="newOrder.modeOfTrans" required >
+      <option value="" disabled>Choose your mode Of Trans</option>
+      <option value="Ground Standard" name="Ground Standard" >Ground Standard</option>
+      <option value="Ground Express" name="Ground Express">Ground Express</option>
+      <option value="Air Premium" name="Air Premium" [disabled]="setMode()">Air Premium</option>
+    </select>
+    <div class="form-control-feedback"
+*ngIf="modeOfTrans.errors && (modeOfTrans.dirty || modeOfTrans.touched)">
+<p *ngIf="modeOfTrans.errors.required">mode Of Transport is required</p>
+</div>
+  </div>
+  <div class="form-group">
+    <label for="exampleFormControlSelect1">Order Status</label>
+    <select class="form-control" #orderStatus="ngModel" name="orderStatus" [(ngModel)]="newOrder.orderStatus"required>
+      <option value="" disabled>Choose order Status</option>
+      <option value="Created" name="Created" >Created</option>
+      <option value="Accepted" name="Accepted">Accepted</option>
+      <option value="In Progress" name="In Progress">In Progress</option>
+      <option value="Completed" name="Completed">Completed</option>
+       </select>
+       <div class="form-control-feedback"
+       *ngIf="orderStatus.errors && (orderStatus.dirty || orderStatus.touched)">
+       <p *ngIf="orderStatus.errors.required">Order Statusis required</p>
+       </div>
+  </div>
+  
+  <button class="btn btn-success" data-dismiss="modal"  (click)="showToasterSuccess()"[disabled]="f.invalid" >Save</button>
+  <button class="btn btn-warning" data-dismiss="modal"routerLink="../order">Cancel</button>
+  <router-outlet></router-outlet>
+</form>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
+    
